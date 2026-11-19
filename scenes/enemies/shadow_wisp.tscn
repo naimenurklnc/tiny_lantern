@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Script" path="res://scripts/environment/shadow_wisp.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/shadow_wisp.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/objects/light_texture.png" id="3_light"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1"]
+atlas = ExtResource("2_tex")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_enemy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1")
+}],
+"loop": true,
+"name": &"float",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enemy"]
+radius = 6.0
+
+[node name="ShadowWisp" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_enemy")
+animation = &"float"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_enemy")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.75, 0.25, 0.95, 1)
+energy = 0.65
+texture = ExtResource("3_light")
+texture_scale = 0.4

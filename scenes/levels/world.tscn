@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="Script" path="res://scripts/game/world.gd" id="1_world"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/forest_bg.png" id="2_bg"]
+[ext_resource type="PackedScene" path="res://scenes/player/player.tscn" id="3_player"]
+[ext_resource type="Script" path="res://scripts/systems/spawn_manager.gd" id="4_spawner"]
+[ext_resource type="PackedScene" path="res://scenes/environment/thorn_obstacle.tscn" id="5_obs"]
+[ext_resource type="PackedScene" path="res://scenes/environment/light_wisp.tscn" id="6_wisp"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/shadow_wisp.tscn" id="7_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/environment/tree_obstacle.tscn" id="8_tree"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/spider.tscn" id="9_spider"]
+[ext_resource type="PackedScene" path="res://scenes/environment/capacity_fruit.tscn" id="10_fruit"]
+[ext_resource type="PackedScene" path="res://scenes/environment/mushroom.tscn" id="11_mush"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/shadow_boss.tscn" id="12_boss"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/lava_cracks_bg.png" id="13_lava"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_world")
+
+[node name="Background1" type="Sprite2D" parent="."]
+position = Vector2(90, 160)
+texture = ExtResource("2_bg")
+
+[node name="Background2" type="Sprite2D" parent="."]
+position = Vector2(90, -160)
+texture = ExtResource("2_bg")
+
+[node name="LavaCracks1" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(90, 160)
+texture = ExtResource("13_lava")
+
+[node name="LavaCracks2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(90, -160)
+texture = ExtResource("13_lava")
+
+[node name="DarknessModulate" type="CanvasModulate" parent="."]
+color = Color(0.42, 0.46, 0.65, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(90, 160)
+zoom = Vector2(2, 2)
+
+[node name="WeatherParticles" type="CPUParticles2D" parent="."]
+position = Vector2(90, 160)
+emitting = false
+amount = 36
+lifetime = 3.5
+emission_shape = 3
+emission_rect_extents = Vector2(90, 160)
+gravity = Vector2(0, 24)
+initial_velocity_min = 4.0
+initial_velocity_max = 12.0
+scale_amount_min = 1.5
+scale_amount_max = 2.5
+
+[node name="SpawnManager" type="Node2D" parent="." node_paths=PackedStringArray("player_node")]
+script = ExtResource("4_spawner")
+obstacle_scene = ExtResource("5_obs")
+tree_scene = ExtResource("8_tree")
+spider_scene = ExtResource("9_spider")
+collectible_scene = ExtResource("6_wisp")
+capacity_fruit_scene = ExtResource("10_fruit")
+mushroom_scene = ExtResource("11_mush")
+shadow_wisp_scene = ExtResource("7_enemy")
+shadow_boss_scene = ExtResource("12_boss")
+player_node = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+position = Vector2(90, 232)

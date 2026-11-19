@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/shadow_boss.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/shadow_boss.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/objects/light_texture.png" id="3_light"]
+[ext_resource type="PackedScene" path="res://scenes/environment/thorn_obstacle.tscn" id="4_obs"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/shadow_wisp.tscn" id="5_wisp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_boss"]
+radius = 14.0
+
+[node name="ShadowBoss" type="Area2D"]
+collision_layer = 8
+collision_mask = 1
+script = ExtResource("1_script")
+obstacle_scene = ExtResource("4_obs")
+shadow_wisp_scene = ExtResource("5_wisp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_boss")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.8, 0.25, 0.95, 1)
+energy = 1.1
+texture = ExtResource("3_light")
+texture_scale = 0.95
